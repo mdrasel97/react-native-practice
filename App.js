@@ -9,6 +9,7 @@ import {
   Button,
   Pressable,
   Modal,
+  Alert,
 } from "react-native";
 
 const ProductImage = require("./assets/download.jpeg");
@@ -82,7 +83,17 @@ export default function HomeScreen() {
         </View>
       </Pressable>
 
-      <Modal
+      <Button
+        title="Alert"
+        onPress={() => {
+          Alert.alert("Invalid Data!", "Please enter valid data.", [
+            { text: "Cancel", style: "cancel" },
+            { text: "OK", onPress: () => console.log("OK Pressed") },
+          ]);
+        }}
+      />
+
+      {/* <Modal
         style={styles.container}
         visible={modalVisible}
         animationType="slide"
@@ -99,7 +110,7 @@ export default function HomeScreen() {
             }}
           />
         </View>
-      </Modal>
+      </Modal> */}
       <View style={{ height: 20 }} />
     </ScrollView>
   );
