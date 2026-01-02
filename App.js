@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   View,
   Text,
@@ -6,11 +7,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   Button,
+  Pressable,
+  Modal,
 } from "react-native";
 
 const ProductImage = require("./assets/download.jpeg");
 
 export default function HomeScreen() {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
@@ -40,51 +44,62 @@ export default function HomeScreen() {
       </View>
 
       {/* Cards */}
-      <View style={styles.cardsContainer}>
-        {[1, 2, 3].map((item) => (
-          <View key={item} style={styles.card}>
-            {/* <Image source={ProductImage} style={styles.cardImage} /> */}
-            <Image
-              source={{ uri: "https://picsum.photos/id/1/200/300" }}
-              style={styles.cardImage}
-            />
+      <Pressable
+        onPress={() => {
+          console.log("pressed card");
+        }}
+      >
+        <View style={styles.cardsContainer}>
+          {[1, 2, 3].map((item) => (
+            <View key={item} style={styles.card}>
+              {/* <Image source={ProductImage} style={styles.cardImage} /> */}
+              <Image
+                source={{ uri: "https://picsum.photos/id/1/200/300" }}
+                style={styles.cardImage}
+              />
 
-            <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>Product Name</Text>
-              <Text style={styles.cardDesc}>Short description goes here</Text>
+              <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>Product Name</Text>
+                <Text style={styles.cardDesc}>Short description goes here</Text>
 
-              <View style={styles.cardFooter}>
-                <Text style={styles.price}>$25.00</Text>
-                {/* <TouchableOpacity style={styles.buyBtn}>
+                <View style={styles.cardFooter}>
+                  <Text style={styles.price}>$25.00</Text>
+                  {/* <TouchableOpacity style={styles.buyBtn}>
                   <Text style={styles.buyText}>Buy</Text>
                 </TouchableOpacity> */}
-                {/* <Button>Buy</Button> */}
-                <Button
-                  title="Buy"
-                  onPress={() => {
-                    console.log("button on buy");
-                  }}
-                />
+                  {/* <Button>Buy</Button> */}
+                  <Button
+                    title="Buy"
+                    color={"blue"}
+                    onPress={() => {
+                      setModalVisible(true);
+                    }}
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        ))}
-      </View>
+          ))}
+        </View>
+      </Pressable>
 
-      <View style={{ height: 20 }} />
-      <Text style={{ textAlign: "center", color: "#9CA3AF" }}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima vero
-        assumenda impedit! Sit sed cum error officiis magnam at illo aut dolore
-        vel? Corporis nisi voluptatum provident, iste aperiam facilis similique
-        tempora molestiae facere, sit labore consequatur quae quam? Esse et
-        necessitatibus repudiandae commodi dolor dolorum voluptas corporis ab
-        provident! Iste quidem assumenda tenetur fugiat qui aut, esse suscipit
-        ut et quam facilis ab architecto nobis itaque quaerat molestias enim?
-        Dolorum numquam cupiditate voluptatibus distinctio! Error quisquam
-        suscipit esse harum, reprehenderit omnis est illo doloribus placeat.
-        Sapiente facilis aliquid iure, quibusdam deserunt odio nobis. Harum odio
-        quo ea enim quod?
-      </Text>
+      <Modal
+        style={styles.container}
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+        presentationStyle="pageSheet"
+      >
+        <View>
+          <Text>Modal Content</Text>
+          <Button
+            title="Close"
+            onPress={() => {
+              setModalVisible(false);
+            }}
+          />
+        </View>
+      </Modal>
       <View style={{ height: 20 }} />
     </ScrollView>
   );
